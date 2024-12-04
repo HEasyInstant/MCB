@@ -1,0 +1,41 @@
+// src/app/auth.service.ts
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthService {
+  private currentUserSubject = new BehaviorSubject<any>(null);
+  public currentUser = this.currentUserSubject.asObservable();
+
+  constructor() {
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.currentUserSubject.next(JSON.parse(user));
+    }
+  }
+
+  login(username: string, password: string): boolean {
+    const users = [
+      { username: 'admin', password: 'adminpass', role: 'Admin' },
+      { username: 'user', password: 'userpass', role: 'Normal' },
+    ];
+
+    const foundUser = users.find(
+      (user) => user.username === username && user.password === password
+    );
+
+    if (foundUser) {
+      localStorage.setItem('user', JSON.stringify(foundUser));
+      this.currentUserSubject.next(foundUser);
+      return true;
+    }
+    return false;
+  }
+
+  logout() {
+    localStorage.removeItem('user');
+    this.currentUserSubject.next(null);
+  }
+}

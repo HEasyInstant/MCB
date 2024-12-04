@@ -1,0 +1,11 @@
+<div class="login-form">
+  <h2>Login</h2>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  <label for="username">Username:</label>
+  <input id="username" [(ngModel)]="username" type="text" required />
+
+  <label for="password">Password:</label>
+  <input id="password" [(ngModel)]="password" type="password" required />
+
+  <button (click)="onLogin()">Login</button>
+</div>

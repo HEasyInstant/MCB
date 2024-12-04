@@ -1,0 +1,6 @@
+<div class="dashboard">
+  <h2>Welcome, {{ currentUser?.username }}!</h2>
+  <button routerLink="/new-transaction">New Transaction</button>
+  <button routerLink="/view-transactions">View Submitted Transactions</button>
+  <button (click)="onLogout()">Logout</button>
+</div>
